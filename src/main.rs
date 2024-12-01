@@ -1,21 +1,27 @@
-use clap::Parser;
-
-mod days;
+use clap::{Parser, Subcommand};
+mod days; // Import the days module
 
 #[derive(Parser)]
-#[command(name = "advent_of_code")]
+#[command(name = "aoc")]
 #[command(about = "Run Advent of Code challenges", long_about = None)]
 struct Cli {
-    /// Specify the day to run (e.g., "day1", "day2")
-    day: String,
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Run the solution for Day 1
+    Day1,
+    /// Run the solution for Day 2
+    Day2,
 }
 
 fn main() {
     let cli = Cli::parse();
 
-    match cli.day.as_str() {
-        "day1" => days::day01::run(),
-        "day2" => days::day02::run(),
-        _ => println!("Unknown day: {}", cli.day),
+    match cli.command {
+        Commands::Day1 => days::day01::run(),
+        Commands::Day2 => days::day02::run(),
     }
 }
