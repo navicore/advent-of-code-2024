@@ -3,7 +3,7 @@ mod days; // Import the days module
 
 #[derive(Parser)]
 #[command(name = "aoc")]
-#[command(about = "Run Advent of Code challenges", long_about = None)]
+#[command(about = "Run Advent of Code challenges")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
