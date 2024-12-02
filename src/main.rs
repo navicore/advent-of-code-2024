@@ -18,9 +18,7 @@ enum Commands {
 }
 
 fn main() {
-    let cli = Cli::parse();
-
-    match cli.command {
+    match Cli::parse().command {
         Commands::Day1 => days::day01::run(),
         Commands::Day2 => days::day02::run(),
     }
