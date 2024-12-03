@@ -3,7 +3,7 @@ mod days; // Import the days module
 
 #[derive(Parser)]
 #[command(name = "aoc")]
-#[command(about = "Run Advent of Code challenges", long_about = None)]
+#[command(about = "Run Advent of Code challenges")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -18,9 +18,7 @@ enum Commands {
 }
 
 fn main() {
-    let cli = Cli::parse();
-
-    match cli.command {
+    match Cli::parse().command {
         Commands::Day1 => days::day01::run(),
         Commands::Day2 => days::day02::run(),
     }
