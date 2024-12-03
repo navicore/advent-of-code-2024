@@ -3,7 +3,7 @@ const DAY02: &str = include_str!("../resources/day02_input.txt");
 fn is_safe(report: &[i32]) -> bool {
     let mut prev_val: Option<i32> = None;
     let mut prev_dir: i32 = 0;
-    for b in report.iter() {
+    for b in report {
         if let Some(prev_val) = prev_val {
             let diff = b - prev_val;
             let dir = match diff {
@@ -56,11 +56,10 @@ pub fn run() {
     let reports: Vec<Vec<i32>> = DAY02
         .lines()
         .filter_map(|line| {
-            let nums: Result<Vec<i32>, _> = line
-                .split_whitespace()
+            line.split_whitespace()
                 .map(|num| num.parse::<i32>())
-                .collect();
-            nums.ok()
+                .collect::<Result<Vec<i32>, _>>()
+                .ok()
         })
         .collect();
 
