@@ -57,8 +57,8 @@ pub fn run() {
         .lines()
         .filter_map(|line| {
             line.split_whitespace()
-                .map(|num| num.parse::<i32>())
-                .collect::<Result<Vec<i32>, _>>()
+                .map(str::parse::<i32>)
+                .collect::<Result<Vec<_>, _>>()
                 .ok()
         })
         .collect();
