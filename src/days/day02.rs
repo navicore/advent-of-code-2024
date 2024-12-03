@@ -3,7 +3,7 @@ const DAY02: &str = include_str!("../resources/day02_input.txt");
 fn is_safe(report: &[i32]) -> bool {
     let mut prev_val: Option<i32> = None;
     let mut prev_dir: i32 = 0;
-    for &b in report.iter() {
+    for b in report.iter() {
         if let Some(prev_val) = prev_val {
             let diff = b - prev_val;
             let dir = match diff {
@@ -19,14 +19,14 @@ fn is_safe(report: &[i32]) -> bool {
                 _ => (),
             }
         }
-        prev_val = Some(b);
+        prev_val = Some(*b);
     }
     true
 }
 
 fn part1(reports: &[Vec<i32>]) {
     let safe_count = reports.iter().filter(|report| is_safe(report)).count();
-    println!("Number of safe reports: {}", safe_count);
+    println!("Number of safe reports: {safe_count}");
 }
 
 fn part2(reports: &[Vec<i32>]) {
@@ -34,10 +34,7 @@ fn part2(reports: &[Vec<i32>]) {
         .iter()
         .filter(|report| is_safe_with_one_removal(report))
         .count();
-    println!(
-        "Number of safe reports with problem dampener: {}",
-        safe_count
-    );
+    println!("Number of safe reports with problem dampener: {safe_count}");
 }
 
 fn is_safe_with_one_removal(report: &[i32]) -> bool {
@@ -58,10 +55,12 @@ pub fn run() {
     // parse file into Vec<Vec<i32>>
     let reports: Vec<Vec<i32>> = DAY02
         .lines()
-        .map(|line| {
-            line.split_whitespace()
-                .map(|num| num.parse::<i32>().expect("Invalid number"))
-                .collect()
+        .filter_map(|line| {
+            let nums: Result<Vec<i32>, _> = line
+                .split_whitespace()
+                .map(|num| num.parse::<i32>())
+                .collect();
+            nums.ok()
         })
         .collect();
 
