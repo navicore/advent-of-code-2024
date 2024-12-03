@@ -29,6 +29,31 @@ fn part1(reports: &[Vec<i32>]) {
     println!("Number of safe reports: {}", safe_count);
 }
 
+fn part2(reports: &[Vec<i32>]) {
+    let safe_count = reports
+        .iter()
+        .filter(|report| is_safe_with_one_removal(report))
+        .count();
+    println!(
+        "Number of safe reports with problem dampener: {}",
+        safe_count
+    );
+}
+
+fn is_safe_with_one_removal(report: &[i32]) -> bool {
+    if is_safe(report) {
+        return true;
+    }
+    for i in 0..report.len() {
+        let mut modified_report = report.to_vec();
+        modified_report.remove(i);
+        if is_safe(&modified_report) {
+            return true;
+        }
+    }
+    false
+}
+
 pub fn run() {
     // parse file into Vec<Vec<i32>>
     let reports: Vec<Vec<i32>> = DAY02
@@ -41,4 +66,5 @@ pub fn run() {
         .collect();
 
     part1(&reports);
+    part2(&reports);
 }
