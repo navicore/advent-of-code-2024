@@ -14,6 +14,7 @@ enum Commands {
     Day1,
     Day2,
     Day3,
+    Day4,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -21,6 +22,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Day1 => days::day01::run(),
         Commands::Day2 => days::day02::run(),
         Commands::Day3 => days::day03::run()?,
+        Commands::Day4 => days::day04::run(),
     }
     Ok(())
 }
